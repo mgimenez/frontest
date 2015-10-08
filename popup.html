@@ -27,6 +27,11 @@
         text-align: center;
         letter-spacing: 1px;
     }
+
+    input, textarea {
+        padding: 5px;
+    }
+    
     textarea {
         width: 500px;
         height: 300px;
@@ -40,6 +45,7 @@
     legend {
         margin-bottom: 10px;
         display: inline-block;
+        min-width: 50px;
     }
 
     .form-row input[type="text"] {
@@ -65,7 +71,7 @@
             <textarea class="html-code" id="html-code" name="html-code"></textarea>
         </div>
         <fieldset>
-            <legend>You can add URL resources</legend>
+            <legend>External resources</legend>
             <div class="form-row">
                 <label for="js-resource">JS</label>
                 <input type="text" id="js-resource" name="js-resource">
