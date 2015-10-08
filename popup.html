@@ -17,6 +17,7 @@
 
     form {
         margin: 20px;
+        width: 500px;
     }
 
     h1 {
@@ -28,30 +29,51 @@
         letter-spacing: 1px;
     }
 
-    input, textarea {
+    input {
         padding: 5px;
-    }
-    
-    textarea {
-        width: 500px;
-        height: 300px;
     }
 
     .form-row {
         margin: 0 0 10px 0;
     }
 
-    .form-row label,
     legend {
-        margin-bottom: 10px;
+        padding: 10px;
+        margin: 10px 0;
+        border-top: solid 1px #ccc;
+        border-bottom: solid 1px #ccc;
         display: inline-block;
-        min-width: 50px;
+        width: 100%;
     }
 
-    .form-row input[type="text"] {
+    input[type="text"] {
         width: 200px;
         display: inline-block;
     }
+
+    .btn-more {
+        border-radius: 5px;
+        width: 30px;
+        border: none;
+        background: #444;
+        color: #ddd;
+        padding-bottom: 5px;
+        font-size: 21px;
+        padding: 0 10px 5px 10px;
+    }
+
+    #editor { 
+        width: 100%;
+        height: 300px;
+        margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
     </style>
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
@@ -59,32 +81,28 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="run-html.js"></script>
+    
 </head>
 
 <body>
     <h1>Frontesting</h1>
     
     <form>
-        <div class="form-row">
-            <label for="html-code">Write your HTML</label>
-            <textarea class="html-code" id="html-code" name="html-code"></textarea>
-        </div>
+        <fieldset>
+            <legend>Write your HTML</legend>
+            <div id="editor"></div>
+        </fieldset>
         <fieldset>
             <legend>External resources</legend>
             <div class="form-row">
-                <label for="js-resource">JS</label>
-                <input type="text" id="js-resource" name="js-resource">
-                <button>+</button>
-            </div>
-            <div class="form-row">
-                <label for="css-resource">CSS</label>
-                <input type="text" name="css-resource">
-                <button>+</button>
+                <input type="text" id="js-resource" placeholder="URL Resource" name="js-resource">
+                <button class="btn-more">+</button>
             </div>
         </fieldset>
         <input value="Run!" type="submit">
     </form>
+    <script src="ace.js"></script>
+    <script src="run-html.js"></script>
 </body>
 
 </html>
