@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "Frontesting",
+  "description": "A extension for try your HTML code using Chrome DevTool",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+  "permissions": [
+      "storage",
+      "tabs", 
+      "http://*/*", 
+      "https://*/*"
+  ]
+}

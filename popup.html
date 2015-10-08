@@ -1,0 +1,84 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+
+<head>
+    <title>Getting Started Extension's Popup</title>
+    <link rel="stylesheet" href="reset.css"/>
+    <style>
+    body {
+        font-family: "Tahoma", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+    }
+
+    form {
+        margin: 20px;
+    }
+
+    h1 {
+        font-size: 18px;
+        background: #444;
+        color: #ddd;
+        padding: 10px;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+    textarea {
+        width: 500px;
+        height: 300px;
+    }
+
+    .form-row {
+        margin: 0 0 10px 0;
+    }
+
+    .form-row label,
+    legend {
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .form-row input[type="text"] {
+        width: 200px;
+        display: inline-block;
+    }
+    </style>
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <script src="run-html.js"></script>
+</head>
+
+<body>
+    <h1>Frontesting</h1>
+    
+    <form>
+        <div class="form-row">
+            <label for="html-code">Write your HTML</label>
+            <textarea class="html-code" id="html-code" name="html-code"></textarea>
+        </div>
+        <fieldset>
+            <legend>You can add URL resources</legend>
+            <div class="form-row">
+                <label for="js-resource">JS</label>
+                <input type="text" id="js-resource" name="js-resource">
+                <button>+</button>
+            </div>
+            <div class="form-row">
+                <label for="css-resource">CSS</label>
+                <input type="text" name="css-resource">
+                <button>+</button>
+            </div>
+        </fieldset>
+        <input value="Run!" type="submit">
+    </form>
+</body>
+
+</html>
