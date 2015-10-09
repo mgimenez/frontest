@@ -3,50 +3,38 @@
 
 	window.addEventListener('load', function(evt) {
 
-		var editor = initAce();
-
-		var form = doc.querySelector('form'),
-			btnMore = doc.querySelectorAll('.btn-more'),
+		var editor = initAce(),
+			form = doc.querySelector('form'),
+			btnMore = doc.querySelector('.btn-more'),
 			data = {};
+
+		//persistent data
+		chrome.storage.sync.get(function(data) {
+			if (data.editor) editor.setValue(data.editor, 1);
+		});
+
+		//updating data
+		editor.on('input', function(){
+			chrome.storage.sync.set({'editor': editor.getValue()})
+		});
+
+		//popup handlers
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
-			// var cssResources = '<link rel="stylesheet" href="' + doc.querySelector('#css-resource').value + '"/>';
-			// var jsResources = '<script src="' + doc.querySelector('#js-resource').value + '"</script>';
 			// var loc = 'data:text/html, ' + cssResources + doc.querySelector('.html-code').value + jsResources;
 			var loc = 'data:text/html, ' + editor.getValue();
 			chrome.tabs.create( { url: loc}, function() {chrome.devtools.inspectedWindow});
 			
 		});
+		
+		btnMore.addEventListener('click', function(e) {
+			
+			e.preventDefault();
+			var urlResource = doc.querySelector('#url-resource').value;
 
-		for (var i = 0; i < btnMore.length; i++) {
-			btnMore[i].addEventListener('click', function(e) {
-				e.preventDefault();
-			});
-		}
-
-		// form.addEventListener('focus', function(e) {
-		// 	var currentFocus = e.target,
-		// 		name = currentFocus.name;
-
-		// 	form.addEventListener('keypress', function(e) {
-		// 		data[name] = currentFocus.value;
-
-		// 	});
-
-		// });
-
+		});
 		
 	});
-
-
-	chrome.storage.sync.set({'value': 'theValue'}, function() {
-      // Notify that we saved.
-      console.log('ok!');
-    });
-
-    chrome.storage.sync.get('value', function(data) {
-    	console.log(data.value);
-    })
 
     function initAce() {
 		var editor = ace.edit("editor");

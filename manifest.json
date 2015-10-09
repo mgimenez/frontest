@@ -9,10 +9,17 @@
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
-  "background": {
-    "scripts": ["event.js"],
-    "persistent": false
-  },
+  // "background": {
+  //   "scripts": ["event.js"],
+  //   "persistent": false
+  // },
+  
+  // "content_scripts": [{
+  //    "matches": ["http://*/*","http://www.site.com/*"],
+  //    "js": ["content.js"],
+  //    "run_at": "document_end"
+  // }],  
+
   "permissions": [
       "storage",
       "tabs", 
