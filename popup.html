@@ -1,96 +1,26 @@
 <!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
-
 <head>
-    <title>Getting Started Extension's Popup</title>
-    <link rel="stylesheet" href="reset.css"/>
-    <style>
-    body {
-        font-family: "Tahoma", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
-    }
-
-    form {
-        margin: 20px;
-        width: 500px;
-    }
-
-    h1 {
-        font-size: 18px;
-        background: #444;
-        color: #ddd;
-        padding: 10px;
-        text-align: center;
-        letter-spacing: 1px;
-    }
-
-    h1 span {
-        color: #ec2672;
-    }
-
-    input {
-        padding: 5px;
-    }
-
-    .form-row {
-        margin: 0 0 10px 0;
-    }
-
-    legend {
-        padding: 10px;
-        margin: 10px 0;
-        border-top: solid 1px #ccc;
-        border-bottom: solid 1px #ccc;
-        display: inline-block;
-        width: 100%;
-    }
-
-    input[type="text"] {
-        width: 200px;
-        display: inline-block;
-    }
-
-    .btn-more {
-        border-radius: 5px;
-        width: 30px;
-        border: none;
-        background: #444;
-        color: #ddd;
-        padding-bottom: 5px;
-        font-size: 21px;
-        padding: 0 10px 5px 10px;
-    }
-
-    #editor { 
-        width: 100%;
-        height: 300px;
-        margin-bottom: 10px;
-    }
-
-    input[type="submit"] {
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-    }
-
-    </style>
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
+    <title>Frontest</title>
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
     
 </head>
 
 <body>
-    <h1>FronTest</h1>
-    <form>
+    <h1>Frontest</h1>
+    <a href="#" class="icon-feedback" tabindex="-1">i</a>
+    <div class="content-feedback">
+        <i class="arrow-border"></i>
+        <i class="arrow"></i>
+        <h4>We need to improve, any suggestions are welcome.</h4>
+        <p>We don't find a solution to open Chrome Dev Tool via Javascript, it would be helpful.</p>
+        <form class="form-feedback">
+            <textarea name="entry.430085320" required="" placeholde="Send us your comments or suggestions"></textarea>
+            <input type="submit" name="submit" value="Submit" id="ss-submit" class="jfk-button jfk-button-action ">
+            <p class="thank-feedback">Thanks for your feedback!</p>
+        </form></div>
+    <form class="panel">
         <fieldset>
             <legend>Write your HTML</legend>
             <div id="editor"></div>
@@ -99,13 +29,13 @@
             <legend>External resources</legend>
             <div class="form-row">
                 <input type="text" id="url-resource" placeholder="URL Resource" name="url-resource">
-                <button class="btn-more">+</button>
+                <button class="btn-add-resource">+</button>
             </div>
+            <ul class="list-resources"></ul>
+            <input value="Run!" type="submit">
         </fieldset>
-        <input value="Run!" type="submit">
     </form>
-    <script src="ace.js"></script>
-    <script src="run-html.js"></script>
+    <script src="js/ace.js"></script>
+    <script src="js/run-html.js"></script>
 </body>
-
 </html>

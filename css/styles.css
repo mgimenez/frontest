@@ -1,0 +1,223 @@
+body {
+    font-family: "Tahoma", "Lucida Grande", Tahoma, sans-serif;
+    font-size: 100%;
+    position: relative;
+}
+
+.panel {
+    padding: 20px;
+    width: 540px;
+}
+
+h1 {
+    font-size: 18px;
+    background: #444;
+    color: #ddd;
+    padding: 10px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.icon-feedback {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ccc;
+    color: #333;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 12px;
+    text-decoration: none;
+    font-style: italic;
+    line-height: 20px;
+    font-family: serif;
+    outline: none;
+}
+
+.icon-feedback:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    color: #fff;
+    right: 25px;
+}
+
+.icon-feedback:hover:before,
+.icon-feedback.active:before {
+    content: 'Feedback';
+}
+.icon-feedback:hover {
+    background-color: #ddd;
+
+}
+
+.content-feedback {
+    border: solid 1px #ccc;
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    background-color: rgb(234, 236, 240);
+    padding: 10px;
+    z-index: 100;
+    border-radius: 3px;
+    margin-top: 8px;
+    display: none;
+    box-shadow: 2px 2px 2px rgba(100,100,100,.2);
+}
+
+.content-feedback .arrow-border {
+    border-width: 13px 13px 13px 0px;
+    border-top-style: dashed;
+    border-right-style: solid;
+    border-bottom-style: dashed;
+    border-color: transparent rgb(187, 187, 187);
+    margin: 0px;
+    transform: rotate(90deg);
+    position: absolute;
+    right: 7px;
+    top: -20px;
+}
+.content-feedback .arrow {
+    border-width: 13px 13px 13px 0px;
+    border-top-style: dashed;
+    border-right-style: solid;
+    border-bottom-style: dashed;
+    border-color: transparent rgb(234, 236, 240);
+    margin: -26px 0px 0px 1px;
+    display: block;
+    position: absolute;
+    transform: rotate(90deg);
+    right: 7px;
+    top: 7px;
+}
+
+.content-feedback h4 {
+    margin: 10px 0;
+}
+
+.content-feedback p {
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+.content-feedback textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.content-feedback input[type="submit"] {
+    float: right;
+    padding: 7px;
+}
+
+.content-feedback .thank-feedback {
+    text-align: right;
+    position: relative;
+    top: 8px;
+    right: 10px;
+    display: none;
+}
+
+
+.active,
+.thank-feedback.active {
+    display: block;
+}
+
+
+h1 span {
+    color: #ec2672;
+}
+
+input {
+    padding: 5px;
+}
+
+fieldset {
+    position: relative;
+}
+
+.form-row {
+    margin: 0 0 10px 0;
+}
+
+legend {
+    padding: 10px;
+    margin: 10px 0;
+    border-top: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+    display: inline-block;
+    width: 100%;
+}
+
+input[type="text"] {
+    width: 410px;
+    display: inline-block;
+}
+
+.error {
+    border: solid 1px #F00;
+}
+
+.btn-add-resource {
+    border-radius: 3px;
+    width: 30px;
+    border: none;
+    background: #444;
+    color: #ddd;
+    padding-bottom: 5px;
+    font-size: 21px;
+    padding: 0 10px 5px 10px;
+}
+
+.list-resources a {
+    font-size: 12px;
+}
+
+.list-resources li {
+    margin: 0 0 5px 0;
+    position: relative;
+    padding: 0 0px 5px 5px;
+    display: inline-block;
+}
+
+.list-resources li:hover {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.list-resources li span {
+    font-size: 12px;
+    margin: 3px 3px 3px 3px;
+    padding: 0px 5px 3px 5px;
+    cursor: pointer;
+}
+
+.list-resources li span:hover {
+    background: #999;
+    border-radius: 3px;
+}
+
+#editor { 
+    width: 100%;
+    height: 300px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    border-radius: 3px;
+    border: solid 1px #aaa;
+
+    font-weight: 600;
+}
+
+.panel input[type="submit"] {
+    position: absolute;
+    top: 46px;
+    right: 0;
+    padding: 8px 10px;
+}
