@@ -1,4 +1,4 @@
-### Some HTML
+### Frontest
 
 A Chrome extension to try your JavaScript, CSS, HTML code using Chrome DevTool.
 
