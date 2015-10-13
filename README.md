@@ -1,6 +1,6 @@
 ### Some HTML
 
-A Chrome extension for try your JavaScript, CSS, HTML code using Chrome DevTool.
+A Chrome extension to try your JavaScript, CSS, HTML code using Chrome DevTool.
 
 * * *
 
