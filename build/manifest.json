@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Frontest",
-  "description": "A Chrome extension for try your JavaScript, CSS, HTML code using Chrome DevTool",
+  "description": "A Chrome extension to try your HTML, CSS, JavaScript code using Chrome DevTool.",
   "version": "1.0",
 
   "browser_action": {
