@@ -1,12 +1,12 @@
 {
   "manifest_version": 2,
 
-  "name": "Frontesting",
-  "description": "A Chrome extension for try your HTML code using Chrome DevTool",
+  "name": "Frontest",
+  "description": "A Chrome extension for try your JavaScript, CSS, HTML code using Chrome DevTool",
   "version": "1.0",
 
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "assets/icon.png",
     "default_popup": "popup.html"
   },
   // "background": {

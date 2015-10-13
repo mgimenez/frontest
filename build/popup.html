@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <title>Frontest</title>
+    <link rel="stylesheet" href="css/styles.min.css"/>
+</head>
+
+<body>
+    <h1>Frontest</h1>
+    <a href="#" class="icon-feedback" tabindex="-1">i</a>
+    <div class="content-feedback">
+        <i class="arrow-border"></i>
+        <i class="arrow"></i>
+        <h4>We need to improve, any suggestions are welcome.</h4>
+        <p>We don't find a solution to open Chrome Dev Tool via Javascript, it would be helpful.</p>
+        <form class="form-feedback">
+            <textarea name="entry.430085320" required="" placeholde="Send us your comments or suggestions"></textarea>
+            <input type="submit" name="submit" value="Submit" id="ss-submit" class="jfk-button jfk-button-action ">
+            <p class="thank-feedback">Thanks for your feedback!</p>
+        </form></div>
+    <form class="panel">
+        <fieldset>
+            <legend>Write your HTML</legend>
+            <div id="editor"></div>
+        </fieldset>
+        <fieldset>
+            <legend>External resources</legend>
+            <div class="form-row">
+                <input type="text" id="url-resource" placeholder="URL Resource" name="url-resource">
+                <button class="btn-add-resource">+</button>
+            </div>
+            <ul class="list-resources"></ul>
+            <input value="Run!" type="submit">
+        </fieldset>
+    </form>
+    <script src="js/ace.js"></script>
+    <script src="js/script.min.js"></script>
+</body>
+</html>

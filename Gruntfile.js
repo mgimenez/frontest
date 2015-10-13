@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                 roundingPrecision: -1
             },
             css: {
-                src: ['src/stylesheets/*.css'],
+                src: ['src/css/*.css'],
                 dest: 'build/css/styles.min.css'
             }
         },
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
                 mangle: true
             },
             js: {
-                src: ['src/js/*.js'],
+                src: ['src/js/run-html.js'],
                 dest: 'build/js/script.min.js'
             }
         },
@@ -40,6 +40,16 @@ module.exports = function(grunt) {
                         cwd: 'src/',
                         src: ['*.html'],
                         dest: 'build'
+                    },{
+                        expand: true,
+                        cwd: 'src/',
+                        src: ['*.json'],
+                        dest: 'build'
+                    },{
+                        expand: true,
+                        cwd: 'src/js',
+                        src: ['ace.js', 'mode-html.js', 'theme-monokai.js'],
+                        dest: 'build/js'
                     }
                 ]
             }
