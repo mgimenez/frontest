@@ -3,23 +3,12 @@
 
   "name": "Frontest",
   "description": "A Chrome extension to try your HTML, CSS, JavaScript code using Chrome DevTool.",
-  "version": "1.0",
+  "version": "1.0.1",
 
   "browser_action": {
     "default_icon": "assets/icon.png",
     "default_popup": "popup.html"
   },
-  // "background": {
-  //   "scripts": ["js/event.js"],
-  //   "persistent": false
-  // },
-  
-  // "content_scripts": [{
-  //    "matches": ["http://*/*","http://www.site.com/*"],
-  //    "js": ["js/content.js"],
-  //    "run_at": "document_end"
-  // }],  
-
   "permissions": [
       "storage",
       "tabs", 
