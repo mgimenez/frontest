@@ -3,14 +3,13 @@
 
 	window.addEventListener('load', function(evt) {
 
-		var editor = initAce(),
+		var editor = initAce('editor-html', 'html'),
+			editorCSS = initAce('editor-css', 'css'),
+			editorJS = initAce('editor-js', 'javascript'),
 			form = doc.querySelector('.panel'),
 			btnAddResource = doc.querySelector('.btn-add-resource'),
 			data = {},
 			arrayResources = [];
-		
-		//disable console warning;
-		editor.$blockScrolling = Infinity;
 
 		//set persistent data
 		chrome.storage.sync.get(function(data) {
@@ -42,7 +41,7 @@
 
 			tagsResources()
 
-			var loc = 'data:text/html, ' + tagsResources().css + editor.getValue() + tagsResources().js;
+			var loc = 'data:text/html, ' + tagsResources().css + tagsResources().js + editor.getValue();
 			//var loc = 'data:text/html, ' + editor.getValue();
 			chrome.tabs.create({ url: loc});
 			
@@ -208,11 +207,17 @@
 		return fileName.split('.').pop(-1);
 	}
 	
-    function initAce() {
-		var editor = ace.edit("editor");
+    function initAce(elemId, language) {
+    	ace.require("ace/ext/language_tools");
+		var editor = ace.edit(elemId);
 		    editor.setTheme("ace/theme/monokai");
-		    editor.getSession().setMode("ace/mode/html");
+		    editor.getSession().setMode("ace/mode/" + language);
 		    editor.getSession().setUseWorker(false);
+		    editor.setOptions({
+		    	enableBasicAutocompletion: true,
+        		enableLiveAutocompletion: true
+		    });
+		    editor.$blockScrolling = Infinity; //disable console warning;
 		return editor;
     }
 
