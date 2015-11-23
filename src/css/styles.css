@@ -134,9 +134,8 @@ h1 {
     display: none;
 }
 
-
-.active,
-.thank-feedback.active {
+.thank-feedback.active,
+.active {
     display: block;
 }
 
@@ -151,6 +150,7 @@ input {
 
 fieldset {
     position: relative;
+    margin-top: 20px;
 }
 
 .form-row {
@@ -167,20 +167,50 @@ legend {
     position: relative;
 }
 
-.code-editor legend:after {
-    content: '>';
-    transform:rotate(-90deg);
+.tabs {
+    position: relative;
+    min-height: 330px;
+    background: #171814;
+    padding-top: 8px;
+}
+
+.tabs li {
+    display: inline-block;
+    margin-right: -6px;
+    
+}
+
+.tabs .tab-trigger {
+    padding: 7px 12px;
+    background: #42423f;
+    color: #a8a8a5;
+    text-transform: lowercase;
+    border-radius: 5px 5px 0 0;
+    font-size: 12px;
+}
+
+.tabs li:first-child .tab-trigger {
+    margin-left: 41px;
+}
+
+.tabs .tab-panel {
     position: absolute;
-    right: 10px;
+    left: 0;
+    top: 30px;
+    width: 100%;
 }
 
-.code-editor {
-    height: 37px;
-    overflow: hidden;
+.tabs input[type="radio"],
+.tabs .tab-panel {
+    display: none;
+}
+.tabs input[type="radio"]:checked + label {
+    color: #fff;
+    background: #2b2c26;
 }
 
-.code-editor.active {
-    height: auto;
+.tabs input[type="radio"]:checked + label + .tab-panel {
+    display: block;
 }
 
 input[type="text"] {

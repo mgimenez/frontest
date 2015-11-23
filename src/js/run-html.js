@@ -8,6 +8,7 @@
 			editorJS = initAce('editor-js', 'javascript'),
 			form = doc.querySelector('.panel'),
 			btnAddResource = doc.querySelector('.btn-add-resource'),
+			codeTabs = doc.querySelector('[name="code-tabs"]'),
 			data = {},
 			arrayResources = [];
 
@@ -96,6 +97,7 @@
 				iconFeedback.classList.add('active');
 			}
 		});
+		
 		doc.querySelector('.form-feedback').addEventListener('submit', function(e) {
 			e.preventDefault();
 			var stringFeedback = doc.querySelector('[name="entry.430085320"]').value,
@@ -115,14 +117,20 @@
 
 		});
 
-		doc.querySelector('.panel').addEventListener('click', function() {
-			var contentFeedback = doc.querySelector('.content-feedback'),
-				iconFeedback = doc.querySelector('.icon-feedback');
+		// doc.querySelector('.icon-feedback').addEventListener('click', function() {
+		// 	var contentFeedback = doc.querySelector('.content-feedback'),
+		// 		iconFeedback = doc.querySelector('.icon-feedback');
 
-			if (contentFeedback.classList.contains('active')) {
-				contentFeedback.classList.remove('active');
-				iconFeedback.classList.remove('active');
-			}
+		// 	if (contentFeedback.classList.contains('active')) {
+		// 		contentFeedback.classList.remove('active');
+		// 		iconFeedback.classList.remove('active');
+		// 	}
+		// });
+
+		//tabs
+		codeTabs.addEventListener('change', function(e) {
+			var editor = $(e.target).parentElement.querySelector('.editor');
+			
 		});
 	});
 	
