@@ -38,10 +38,6 @@
 		//submit handler
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
-			tagsResources().css
-
-			tagsResources()
-
 			var loc = 'data:text/html, ' + tagsResources().css + tagsResources().js + editor.getValue();
 			//var loc = 'data:text/html, ' + editor.getValue();
 			chrome.tabs.create({ url: loc});
