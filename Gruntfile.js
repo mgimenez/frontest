@@ -48,7 +48,16 @@ module.exports = function(grunt) {
                     },{
                         expand: true,
                         cwd: 'src/js',
-                        src: ['ace.js', 'mode-html.js', 'theme-monokai.js'],
+                        src: ['ace.js',
+                            'ext-language_tools.js',
+                            'mode-css.js',
+                            'mode-javascript.js',
+                            'mode-html.js', 
+                            'worker-css.js',
+                            'worker-javascript.js',
+                            'worker-html.js', 
+                            'theme-monokai.js'
+                        ],
                         dest: 'build/js'
                     }
                 ]
