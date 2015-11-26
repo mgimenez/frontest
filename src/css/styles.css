@@ -176,21 +176,45 @@ legend {
 
 .tabs li {
     display: inline-block;
-    margin-right: -6px;
-    
 }
 
 .tabs .tab-trigger {
     padding: 7px 12px;
-    background: #42423f;
+    background: linear-gradient(#393937, #4e4e4c);
     color: #a8a8a5;
     text-transform: lowercase;
     border-radius: 5px 5px 0 0;
     font-size: 12px;
+    position: relative;
+    margin: 0 5px;
+}
+
+.tabs .tab-trigger:after,
+.tabs .tab-trigger:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    background: linear-gradient(#393937, #4e4e4c);
+    width: 14px;
+    top: 0;
+}
+
+.tabs .tab-trigger:after {
+    right: -6px;
+    transform: skewX(25deg);
+    border-radius: 0 5px 0 0;
+    
+}
+
+.tabs .tab-trigger:before {
+    left: -6px;
+    transform: skewX(-25deg);
+    border-radius: 5px 0 0 0;
 }
 
 .tabs li:first-child .tab-trigger {
-    margin-left: 41px;
+    margin-left: 53px;
 }
 
 .tabs .tab-panel {
@@ -204,9 +228,16 @@ legend {
 .tabs .tab-panel {
     display: none;
 }
-.tabs input[type="radio"]:checked + label {
+
+.tabs input[type="radio"]:checked + label,
+.tabs input[type="radio"]:checked + label:after,
+.tabs input[type="radio"]:checked + label:before {
     color: #fff;
-    background: #2b2c26;
+    background: linear-gradient(#363731, #272822);
+}
+
+.tabs input[type="radio"]:checked + label:after {
+    z-index: 10;
 }
 
 .tabs input[type="radio"]:checked + label + .tab-panel {
