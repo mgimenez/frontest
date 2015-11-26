@@ -216,7 +216,7 @@
 		var editor = ace.edit(elemId);
 		    editor.setTheme("ace/theme/monokai");
 		    editor.getSession().setMode("ace/mode/" + language);
-		    editor.getSession().setUseWorker(false);
+		    editor.getSession().setUseWorker(true);
 		    editor.setOptions({
 		    	enableBasicAutocompletion: true,
         		enableLiveAutocompletion: true
