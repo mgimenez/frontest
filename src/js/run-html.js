@@ -3,7 +3,7 @@
 
 	window.addEventListener('load', function(evt) {
 
-		var editor = initAce('editor-html', 'html'),
+		var editorHTML = initAce('editor-html', 'html'),
 			editorCSS = initAce('editor-css', 'css'),
 			editorJS = initAce('editor-js', 'javascript'),
 			form = doc.querySelector('.panel'),
@@ -14,7 +14,10 @@
 
 		//set persistent data
 		chrome.storage.sync.get(function(data) {
-			if (data.editor) editor.setValue(data.editor, 1);
+			if (data.editorHTML) editorHTML.setValue(data.editorHTML, 1);
+			if (data.editorCSS) editorCSS.setValue(data.editorCSS, 1);
+			if (data.editorJS) editorJS.setValue(data.editorJS, 1);
+			if (data.activeTab) doc.getElementById(data.activeTab).setAttribute('checked', 'checked');
 			
 			if (data.resources) {
 				var listRes = doc.querySelector('.list-resources');
@@ -29,8 +32,16 @@
 		});
 
 		//updating persistent data
-		editor.on('input', function(){
-			chrome.storage.sync.set({'editor': editor.getValue()})
+		editorHTML.on('input', function(){
+			chrome.storage.sync.set({'editorHTML': editorHTML.getValue()})
+		});
+
+		editorCSS.on('input', function(){
+			chrome.storage.sync.set({'editorCSS': editorCSS.getValue()})
+		});
+
+		editorJS.on('input', function(){
+			chrome.storage.sync.set({'editorJS': editorJS.getValue()})
 		});
 
 
@@ -38,8 +49,7 @@
 		//submit handler
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
-			var loc = 'data:text/html, ' + tagsResources().css + tagsResources().js + editor.getValue();
-			//var loc = 'data:text/html, ' + editor.getValue();
+			var loc = 'data:text/html, ' + tagsResources().css + '<style>' + editorCSS.getValue() + '</style>' + editorHTML.getValue() + tagsResources().js + '<script>' + editorJS.getValue() +'</script>';
 			chrome.tabs.create({ url: loc});
 			
 		});
@@ -116,6 +126,7 @@
 		tabs.addEventListener('change', function(e) {
 			var editor = doc.getElementById('editor-' + e.target.getAttribute('data-lang'));
 			editor.querySelector('textarea').focus();
+			chrome.storage.sync.set({'activeTab': e.target.id});
 		});
 	});
 	
