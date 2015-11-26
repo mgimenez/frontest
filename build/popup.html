@@ -19,10 +19,27 @@
             <p class="thank-feedback">Thanks for your feedback!</p>
         </form></div>
     <form class="panel">
-        <fieldset>
-            <legend>Write your HTML</legend>
-            <div id="editor"></div>
-        </fieldset>
+        <ul class="tabs">
+            <li>
+                <input type="radio" id="html-tab" name="code-tabs" data-lang="html" checked >
+                <label class="tab-trigger" for="html-tab">HTML</label>
+                <div class="tab-panel"><div id="editor-html" class="editor"></div></div>
+
+            </li>
+            <li>
+                <input type="radio" id="css-tab" data-lang="css" name="code-tabs">
+                <label class="tab-trigger" for="css-tab">CSS</label>
+                <div class="tab-panel"><div id="editor-css" class="editor"></div></div>
+
+            </li>
+            <li>
+                <input type="radio" id="js-tab" data-lang="js" name="code-tabs">
+                <label class="tab-trigger" for="js-tab">JS</label>
+                <div class="tab-panel"><div id="editor-js" class="editor"></div></div>
+
+            </li>
+        </ul>
+
         <fieldset>
             <legend>External resources</legend>
             <div class="form-row">
@@ -34,6 +51,7 @@
         </fieldset>
     </form>
     <script src="js/ace.js"></script>
+    <script src="js/ext-language_tools.js"></script>
     <script src="js/script.min.js"></script>
-</body>
+</body> 
 </html>
