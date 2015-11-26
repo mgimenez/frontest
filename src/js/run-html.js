@@ -8,7 +8,7 @@
 			editorJS = initAce('editor-js', 'javascript'),
 			form = doc.querySelector('.panel'),
 			btnAddResource = doc.querySelector('.btn-add-resource'),
-			codeTabs = doc.querySelector('[name="code-tabs"]'),
+			tabs = doc.querySelector('.tabs'),
 			data = {},
 			arrayResources = [];
 
@@ -117,20 +117,9 @@
 
 		});
 
-		// doc.querySelector('.icon-feedback').addEventListener('click', function() {
-		// 	var contentFeedback = doc.querySelector('.content-feedback'),
-		// 		iconFeedback = doc.querySelector('.icon-feedback');
-
-		// 	if (contentFeedback.classList.contains('active')) {
-		// 		contentFeedback.classList.remove('active');
-		// 		iconFeedback.classList.remove('active');
-		// 	}
-		// });
-
-		//tabs
-		codeTabs.addEventListener('change', function(e) {
-			var editor = $(e.target).parentElement.querySelector('.editor');
-			
+		tabs.addEventListener('change', function(e) {
+			var editor = doc.getElementById('editor-' + e.target.getAttribute('data-lang'));
+			editor.querySelector('textarea').focus();
 		});
 	});
 	
