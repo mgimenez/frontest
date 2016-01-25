@@ -292,6 +292,10 @@ input[type="text"] {
     border-radius: 3px;
 }
 
+.include-resources label {
+    font-size: 12px;
+}
+
 #editor,
 .editor { 
     width: 100%;

@@ -1,13 +1,18 @@
 (function(doc){
 	'use strict';
 
+	var app = {};
+
 	window.addEventListener('load', function(evt) {
+
+		getResourcesService();
 
 		var editorHTML = initAce('editor-html', 'html'),
 			editorCSS = initAce('editor-css', 'css'),
 			editorJS = initAce('editor-js', 'javascript'),
 			form = doc.querySelector('.panel'),
 			btnAddResource = doc.querySelector('.btn-add-resource'),
+			//presetResources = doc.querySelector('.include-resources [type="checkbox"]'),
 			tabs = doc.querySelector('.tabs'),
 			data = {},
 			arrayResources = [];
@@ -18,7 +23,6 @@
 			if (data.editorCSS) editorCSS.setValue(data.editorCSS, 1);
 			if (data.editorJS) editorJS.setValue(data.editorJS, 1);
 			if (data.activeTab) doc.getElementById(data.activeTab).setAttribute('checked', 'checked');
-			
 			if (data.resources) {
 				var listRes = doc.querySelector('.list-resources');
 				for (var i = 0; i < data.resources.length; i++) {
@@ -49,15 +53,31 @@
 		//submit handler
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
-			var loc = 'data:text/html, ' + tagsResources().css + '<style>' + editorCSS.getValue() + '</style>' + editorHTML.getValue() + tagsResources().js + '<script>' + editorJS.getValue() +'</script>';
+
+			var loc = 'data:text/html, ' + 
+				tagsResources().css + 
+				'<style>' + editorCSS.getValue() + '</style>' + 
+				editorHTML.getValue() + 
+				tagsResources().js + 
+				'<script>' + editorJS.getValue() +'</script>';
+
 			chrome.tabs.create({ url: loc});
-			
+
 		});
 		
-		//add resource handler
+		// add preset resource handler
+		// presetResources.addEventListener('change', function(e) {
+		// 	var urlResource = getPresetResourceUrl(e.target.getAttribute('value'));
+		// 	if(e.target.checked) {
+		// 		if (urlResource.css !== 'undefined') arrayResources.push(urlResource.css);
+		// 		if (urlResource.js !== 'undefined') arrayResources.push(urlResource.js);
+		// 		chrome.storage.sync.set({'resources': arrayResources})
+		// 	}
+		// });
+
+		//add url resource handler
 		btnAddResource.addEventListener('click', function(e) {
 			e.preventDefault();
-
 			var urlRes = doc.querySelector('#url-resource'),
 				valRes = urlRes.value,
 				listRes = doc.querySelector('.list-resources');
@@ -73,8 +93,6 @@
 			} else {
 				urlRes.classList.add('error');
 			}
-
-
 
 		});
 
@@ -130,27 +148,65 @@
 		});
 	});
 	
+	function getResourcesService() {
+		var xmlhttp = new XMLHttpRequest(),
+			url = "../services/resources.json";
+
+		xmlhttp.onreadystatechange=function() {
+		    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		        app.dataResources = JSON.parse(xmlhttp.responseText);
+		    }
+		}
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+	}
 
 	function getIndexElement(el, parent) {
 		var nodeList = Array.prototype.slice.call(parent.children);
 		return nodeList.indexOf(el);
-
 	}
-	
+
+	function getResourcesList() {
+		var i = 0,
+			j = 0,
+			addedResources = doc.querySelectorAll('.list-resources a'),
+			includes = doc.querySelectorAll('.include-resources [type="checkbox"]:checked'),
+			resources = [],
+			resource;
+
+		for (j; j < includes.length; j++) {
+			resource = getPresetResourceUrl(includes[j].getAttribute('value'));
+			if (resource.css !== undefined) {
+				resources.push(resource.css);
+			}
+			if (resource.js !== undefined) {
+				resources.push(resource.js);
+			}
+		}
+		
+		for (i; i<addedResources.length; i++) {
+			resources.push(addedResources[i].href);
+		}
+
+		return resources;
+	}
+
+	function getPresetResourceUrl(value) {
+		return app.dataResources[value];
+	}
+
 	function tagsResources() {
-		var anchorRes = doc.querySelectorAll('.list-resources a'),
-			i = 0,
-			fileName,
+		var i = 0,
 			linkTag = '',
 			scriptTag = '',
-			tagsToAdd = {};
+			tagsToAdd = {},
+			resources = getResourcesList();
 
-		for (i; i<anchorRes.length; i++) {
-			fileName = anchorRes[i].textContent;
-			if (getFileExtension(fileName) === 'css') {
-				linkTag += '<link rel="stylesheet" href="' + anchorRes[i].href + '"/>'
-			} else if (getFileExtension(fileName) === 'js') {
-				scriptTag += '<script src="' + anchorRes[i].href + '"></script>'
+		for (i; i<resources.length; i++) {
+			if (getFileExtension(resources[i]) === 'css') {
+				linkTag += '<link rel="stylesheet" href="' + resources[i] + '"/>'
+			} else if (getFileExtension(resources[i]) === 'js') {
+				scriptTag += '<script src="' + resources[i] + '"></script>'
 			}
 		}
 
@@ -224,5 +280,7 @@
 		    editor.$blockScrolling = Infinity; //disable console warning;
 		return editor;
     }
+
+    window.app = app;
 
 })(this.document);
