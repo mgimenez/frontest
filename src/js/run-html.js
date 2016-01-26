@@ -12,10 +12,11 @@
 			editorJS = initAce('editor-js', 'javascript'),
 			form = doc.querySelector('.panel'),
 			btnAddResource = doc.querySelector('.btn-add-resource'),
-			//presetResources = doc.querySelector('.include-resources [type="checkbox"]'),
+			presetResources = doc.querySelector('.include-resources'), //Container of preset resources
 			tabs = doc.querySelector('.tabs'),
 			data = {},
-			arrayResources = [];
+			arrayResources = [],
+			arrayPresetResources = [];
 
 		//set persistent data
 		chrome.storage.sync.get(function(data) {
@@ -24,15 +25,34 @@
 			if (data.editorJS) editorJS.setValue(data.editorJS, 1);
 			if (data.activeTab) doc.getElementById(data.activeTab).setAttribute('checked', 'checked');
 			if (data.resources) {
-				var listRes = doc.querySelector('.list-resources');
-				for (var i = 0; i < data.resources.length; i++) {
-					var urlRes = data.resources[i];
+				var listRes = doc.querySelector('.list-resources'),
+					i = 0,
+					urlRes;
+				for (i; i < data.resources.length; i++) {
+					urlRes = data.resources[i];
 					addResourceUI(listRes, urlRes, getFileName(urlRes));	
 					arrayResources.push(urlRes);
 				}
 
 
-			} 
+			}
+
+			if (data.presetResources) {
+				var j = 0, k, l,
+					dataResources = app.dataResources;
+
+				for (j; j < data.presetResources.length; j++) {
+					for (k in dataResources) {
+						for (l in dataResources[k]) {
+							if (data.presetResources[j] === dataResources[k][l]) {
+								doc.querySelector('.include-resources [value="' + k +'"]').setAttribute('checked', 'checked');
+								arrayPresetResources.push(dataResources[k][l]);
+							}
+						} 
+					}
+				}
+
+			}
 		});
 
 		//updating persistent data
@@ -65,15 +85,37 @@
 
 		});
 		
-		// add preset resource handler
-		// presetResources.addEventListener('change', function(e) {
-		// 	var urlResource = getPresetResourceUrl(e.target.getAttribute('value'));
-		// 	if(e.target.checked) {
-		// 		if (urlResource.css !== 'undefined') arrayResources.push(urlResource.css);
-		// 		if (urlResource.js !== 'undefined') arrayResources.push(urlResource.js);
-		// 		chrome.storage.sync.set({'resources': arrayResources})
-		// 	}
-		// });
+		// checkbox preset resource handler
+		presetResources.addEventListener('change', function(e) {
+
+			var urlResource = getPresetResourceUrl(e.target.getAttribute('value')),
+				i = 0,
+				checkboxJquery = doc.querySelector('#include-jQuery');
+
+			if(e.target.checked) {
+
+				if (urlResource.css !== undefined) arrayPresetResources.push(urlResource.css);
+				if (urlResource.js !== undefined) arrayPresetResources.push(urlResource.js);
+
+				if (e.target.id === 'include-bootstrap' && !checkboxJquery.checked) {
+					doc.querySelector('#include-jQuery').click();
+				}
+
+			} else {
+
+				for (i; i < arrayPresetResources.length; i++) {
+					if (urlResource.css !== undefined && urlResource.css === arrayPresetResources[i]) {
+						arrayPresetResources.splice(i, 1);
+					}
+					if (urlResource.js !== undefined && urlResource.js === arrayPresetResources[i]) {
+						arrayPresetResources.splice(i, 1);
+					}
+				}
+
+			}
+			console.log(arrayPresetResources);
+			chrome.storage.sync.set({'presetResources': arrayPresetResources})
+		});
 
 		//add url resource handler
 		btnAddResource.addEventListener('click', function(e) {
