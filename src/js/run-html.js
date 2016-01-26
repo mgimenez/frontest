@@ -1,11 +1,23 @@
 (function(doc){
 	'use strict';
 
-	var app = {};
+	var app = {},
+		urlIcon = "https://lh3.googleusercontent.com/vA40qEKfYIdcuE7jzvTWTMOfW1hR-R0Zf2v2nEnoQ0ksTY30Ush_em8b84QTMicyfr3hCg049Q=s128-h128-e365";
 
 	window.addEventListener('load', function(evt) {
 
 		getResourcesService();
+
+		chrome.tabs.getAllInWindow(null, function(tabs){
+			var tabId = localStorage.getItem('tabId'),
+				arrayTab = [];
+			for (var i = 0; i < tabs.length; i++) {
+				arrayTab.push(tabs[i].id);
+		    }
+			if (!isInArray(parseInt(tabId), arrayTab)) {
+				localStorage.removeItem('tabId');
+			}
+		});
 
 		var editorHTML = initAce('editor-html', 'html'),
 			editorCSS = initAce('editor-css', 'css'),
@@ -75,15 +87,36 @@
 			e.preventDefault();
 
 			var loc = 'data:text/html, ' + 
+				'<title>Frontest</title>' + 
+				'<link rel="icon" type="image/png" href="' +  urlIcon + '">'  +
 				tagsResources().css + 
 				'<style>' + editorCSS.getValue() + '</style>' + 
 				editorHTML.getValue() + 
 				tagsResources().js + 
 				'<script>' + editorJS.getValue() +'</script>';
 
-			chrome.tabs.create({ url: loc});
+			if (localStorage.tabId === undefined) {
+				chrome.tabs.create({ 
+					url: loc
+				}, function (tab) {
+					localStorage.setItem('tabId', tab.id);
+				});
+
+			}  else {
+				var tabId = localStorage.getItem('tabId');
+			    chrome.tabs.update(parseInt(tabId), { 
+			        url: loc,
+			        selected: true
+			    });
+
+			    window.close();
+			}
 
 		});
+
+		chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
+			localStorage.removeItem('tabId');
+		})
 		
 		// checkbox preset resource handler
 		presetResources.addEventListener('change', function(e) {
@@ -113,7 +146,6 @@
 				}
 
 			}
-			console.log(arrayPresetResources);
 			chrome.storage.sync.set({'presetResources': arrayPresetResources})
 		});
 
@@ -307,6 +339,10 @@
 
 	function getFileExtension(fileName) {
 		return fileName.split('.').pop(-1);
+	}
+
+	function isInArray(value, array) {
+	  return array.indexOf(value) > -1;
 	}
 	
     function initAce(elemId, language) {
