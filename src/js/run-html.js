@@ -95,6 +95,8 @@
 				tagsResources().js + 
 				'<script>' + editorJS.getValue() +'</script>';
 
+				loc = loc.replace(/\n/g, '%0A%0D');
+
 			if (localStorage.tabId === undefined) {
 				chrome.tabs.create({ 
 					url: loc
