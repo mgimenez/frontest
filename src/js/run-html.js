@@ -8,7 +8,9 @@
 
 		getResourcesService();
 
-		chrome.tabs.getAllInWindow(null, function(tabs){
+		//get all window
+		chrome.tabs.query({}, function (tabs){
+
 			var tabId = localStorage.getItem('tabId'),
 				arrayTab = [];
 			for (var i = 0; i < tabs.length; i++) {
@@ -96,7 +98,7 @@
 				'<script>' + editorJS.getValue() +'</script>';
 
 			if (localStorage.tabId === undefined) {
-				chrome.tabs.create({ 
+				chrome.tabs.create({
 					url: loc
 				}, function (tab) {
 					localStorage.setItem('tabId', tab.id);
