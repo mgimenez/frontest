@@ -354,14 +354,19 @@
 		var editor = ace.edit(elemId);
 		    editor.setTheme("ace/theme/monokai");
 		    editor.getSession().setMode("ace/mode/" + language);
+		    editor.setShowPrintMargin(false);
 		    editor.getSession().setUseWorker(true);
 		    editor.setOptions({
 		    	enableBasicAutocompletion: true,
         		enableLiveAutocompletion: true
 		    });
 		    editor.$blockScrolling = Infinity; //disable console warning;
+    	
+    	doc.querySelector(".editor").addEventListener("resize", function() { alert(); editor.resize(); });
+
 		return editor;
     }
+
 
     window.app = app;
 
