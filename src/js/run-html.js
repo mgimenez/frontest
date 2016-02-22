@@ -88,14 +88,17 @@
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
 
-			var loc = 'data:text/html, ' + 
+			var loc = 'data:text/html;charset=utf-8, ' + 
+				'<html><head>' +
 				'<title>Frontest</title>' + 
 				'<link rel="icon" type="image/png" href="' +  urlIcon + '">'  +
 				tagsResources().css + 
 				'<style>' + editorCSS.getValue() + '</style>' + 
+				'</head><body>' +
 				editorHTML.getValue() + 
 				tagsResources().js + 
-				'<script>' + editorJS.getValue() +'</script>';
+				'<script>' + editorJS.getValue() +'</script>' +
+				'</body></html>';
 
 				loc = loc.replace(/\n/g, '%0A%0D');
 
