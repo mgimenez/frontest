@@ -3,7 +3,7 @@
 
   "name": "Frontest",
   "description": "A Chrome extension to try your HTML, CSS, JavaScript code using Chrome DevTool.",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "icons": {
     "128": "assets/icon.png",
     "16": "assets/icon16.png",
@@ -17,8 +17,8 @@
 
   "permissions": [
       "storage",
-      "tabs", 
-      "http://*/*", 
+      "tabs",
+      "http://*/*",
       "https://*/*"
   ]
 }

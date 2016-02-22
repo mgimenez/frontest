@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         copy: {
             assets: {
                 files: [
-                    // includes files within path 
+                    // includes files within path
                     {
                         expand: true,
                         cwd: 'src/assets/',
@@ -57,16 +57,31 @@ module.exports = function(grunt) {
                             'ext-language_tools.js',
                             'mode-css.js',
                             'mode-javascript.js',
-                            'mode-html.js', 
+                            'mode-html.js',
                             'worker-css.js',
                             'worker-javascript.js',
-                            'worker-html.js', 
+                            'worker-html.js',
                             'theme-monokai.js'
                         ],
                         dest: 'build/js'
                     }
                 ]
             }
+        },
+
+        processhtml: {
+          dist: {
+            options: {
+              process: true,
+              data: {
+                title: 'Frontest',
+                message: 'This is production distribution'
+              }
+            },
+            files: {
+              'build/popup.html': ['build/popup.html']
+            }
+          }
         }
 
         //     watch: {
@@ -90,9 +105,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-processhtml');
 
     // Default task.
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['cssmin', 'uglify', 'copy']);
+    grunt.registerTask('build', ['cssmin', 'uglify', 'copy', 'processhtml']);
 
 };
