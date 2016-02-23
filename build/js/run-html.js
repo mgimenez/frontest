@@ -44,7 +44,7 @@
 					urlRes;
 				for (i; i < data.resources.length; i++) {
 					urlRes = data.resources[i];
-					addResourceUI(listRes, urlRes, getFileName(urlRes));
+					addResourceUI(listRes, urlRes, getFileName(urlRes));	
 					arrayResources.push(urlRes);
 				}
 
@@ -62,7 +62,7 @@
 								doc.querySelector('.include-resources [value="' + k +'"]').setAttribute('checked', 'checked');
 								arrayPresetResources.push(dataResources[k][l]);
 							}
-						}
+						} 
 					}
 				}
 
@@ -88,59 +88,31 @@
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
 
-			var jsFile = editorJS.getValue(),
-					cssFile = editorCSS.getValue(),
-					data = {};
-
-			data.jsFile = jsFile;
-			data.cssFile = cssFile;
-			data.htmlFile = '<html><head>' +
-				'<title>Frontest</title>' +
+			var loc = 'data:text/html;charset=utf-8, ' + 
+				'<html><head>' +
+				'<title>Frontest</title>' + 
 				'<link rel="icon" type="image/png" href="' +  urlIcon + '">'  +
-				tagsResources().css +
-				'<link rel="stylesheet" href="http://localhost:3000/style.css"/>'  +
+				tagsResources().css + 
+				'<style>' + editorCSS.getValue() + '</style>' + 
 				'</head><body>' +
-				editorHTML.getValue() +
-				tagsResources().js +
-				'<script src="http://localhost:3000/script.js"></script>' +
+				editorHTML.getValue() + 
+				tagsResources().js + 
+				'<script>' + editorJS.getValue() +'</script>' +
 				'</body></html>';
 
-			// var loc = 'data:text/html;charset=utf-8, ' +
-			// 	'<html><head>' +
-			// 	'<title>Frontest</title>' +
-			// 	'<link rel="icon" type="image/png" href="' +  urlIcon + '">'  +
-			// 	tagsResources().css +
-			// 	'<link rel="stylesheet" href="http://localhost:3000/static/style.css"/>'  +
-			// 	'</head><body>' +
-			// 	editorHTML.getValue() +
-			// 	tagsResources().js +
-			// 	'<script src="http://localhost:3000/static/script.js"></script>' +
-			// 	'</body></html>';
-			//
-			// 	loc = loc.replace(/\n/g, '%0A%0D');
-
-			$.ajax({
-				type: 'POST',
-				data: JSON.stringify(data),
-				contentType: 'application/json',
-				url: 'http://localhost:3000/endpoint',
-				success: function(data) {
-					console.log('success');
-					console.log(JSON.stringify(data));
-				}
-			});
+				loc = loc.replace(/\n/g, '%0A%0D');
 
 			if (localStorage.tabId === undefined) {
 				chrome.tabs.create({
-					url: 'localhost:3000',
+					url: loc
 				}, function (tab) {
 					localStorage.setItem('tabId', tab.id);
 				});
 
 			}  else {
 				var tabId = localStorage.getItem('tabId');
-			    chrome.tabs.update(parseInt(tabId), {
-			        url: 'localhost:3000',
+			    chrome.tabs.update(parseInt(tabId), { 
+			        url: loc,
 			        selected: true
 			    });
 
@@ -152,7 +124,7 @@
 		chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 			localStorage.removeItem('tabId');
 		})
-
+		
 		// checkbox preset resource handler
 		presetResources.addEventListener('change', function(e) {
 
@@ -194,7 +166,7 @@
 			if (validURL(valRes)) {
 				urlRes.classList.remove('error');
 				urlRes.value = '';
-
+				
 				addResourceUI(listRes, valRes, getFileName(valRes));
 				arrayResources.push(valRes);
 				chrome.storage.sync.set({'resources': arrayResources})
@@ -216,7 +188,7 @@
 				}
 			}
 		});
-
+		
 		doc.querySelector('.icon-feedback').addEventListener('click', function(e) {
 			e.preventDefault();
 			var contentFeedback = doc.querySelector('.content-feedback'),
@@ -230,18 +202,18 @@
 				iconFeedback.classList.add('active');
 			}
 		});
-
+		
 		doc.querySelector('.form-feedback').addEventListener('submit', function(e) {
 			e.preventDefault();
 			var stringFeedback = doc.querySelector('[name="entry.430085320"]').value,
 				thankFeedback = doc.querySelector('.thank-feedback'),
 				request = new XMLHttpRequest();
-
+				
 			request.open('POST', 'https://docs.google.com/forms/d/1Q1MJW8D2ft1LmLt7JouuoZdJsfD2KT8YB4SR4_w4vGI/formResponse', true);
 			request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 			request.send('entry.430085320=' + stringFeedback);
 			thankFeedback.classList.add('active');
-
+			
 			setTimeout(function(){
 				doc.querySelector('.content-feedback').classList.remove('active');
 				thankFeedback.classList.remove('active');
@@ -256,7 +228,7 @@
 			chrome.storage.sync.set({'activeTab': e.target.id});
 		});
 	});
-
+	
 	function getResourcesService() {
 		var xmlhttp = new XMLHttpRequest(),
 			url = "../services/resources.json";
@@ -292,7 +264,7 @@
 				resources.push(resource.js);
 			}
 		}
-
+		
 		for (i; i<addedResources.length; i++) {
 			resources.push(addedResources[i].href);
 		}
@@ -353,7 +325,7 @@
 		'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
 		'(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
 		'(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-
+		
 		if(!pattern.test(str)) {
 	    	return false;
 	  	} else {
@@ -379,7 +351,7 @@
 	function isInArray(value, array) {
 	  return array.indexOf(value) > -1;
 	}
-
+	
     function initAce(elemId, language) {
     	ace.require("ace/ext/language_tools");
 		var editor = ace.edit(elemId);
@@ -392,7 +364,7 @@
         		enableLiveAutocompletion: true
 		    });
 		    editor.$blockScrolling = Infinity; //disable console warning;
-
+    	
     	doc.querySelector(".editor").addEventListener("resize", function() { alert(); editor.resize(); });
 
 		return editor;
